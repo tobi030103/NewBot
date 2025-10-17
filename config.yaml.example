@@ -1,0 +1,83 @@
+# Example configuration file for NewBot
+# Copy this file to config.yaml and customize for your setup
+
+# Trading configuration
+trading:
+  mode: paper              # Options: 'paper' (simulation) or 'live' (real trading)
+  base_currency: EUR       # Base currency for trading pairs
+  quote_currency: BTC      # Quote currency (asset to trade)
+  trade_amount: 100.0      # Amount to trade per order (in base currency)
+  max_positions: 5         # Maximum number of concurrent positions
+
+# Risk management settings
+risk_management:
+  stop_loss_percent: 2.0          # Stop-loss percentage (2% below entry)
+  take_profit_percent: 5.0        # Take-profit percentage (5% above entry)
+  use_trailing_stop: true         # Enable trailing stop-loss
+  trailing_stop_percent: 1.5      # Trailing stop distance (1.5%)
+  use_guaranteed_stop_loss: false # Use guaranteed SL (if broker supports)
+  max_risk_per_trade: 2.0         # Max risk per trade as % of capital
+  max_daily_loss: 5.0             # Max daily loss as % of capital
+
+# Broker configuration
+broker:
+  name: mock              # Options: 'binance', 'bitpanda', 'mock'
+  sandbox: true           # Use sandbox/testnet mode (recommended for testing)
+  api_key: ''             # API key (or use BROKER_API_KEY env variable)
+  api_secret: ''          # API secret (or use BROKER_API_SECRET env variable)
+
+# Trading strategy configuration
+strategy:
+  name: moving_average_crossover  # Strategy to use
+  timeframe: 1h                   # Timeframe for market data
+  parameters:
+    # Parameters for moving_average_crossover strategy
+    fast_period: 10
+    slow_period: 30
+    signal_threshold: 0.001
+    
+    # Parameters for rsi_strategy (uncomment if using)
+    # period: 14
+    # oversold: 30
+    # overbought: 70
+    
+    # Parameters for trend_following (uncomment if using)
+    # ema_period: 50
+    # trend_threshold: 0.02
+
+# Notification settings
+notifications:
+  enabled: true           # Master switch for notifications
+  
+  email:
+    enabled: false        # Enable email notifications
+    smtp_server: smtp.gmail.com
+    smtp_port: 587
+    from_address: your_email@gmail.com
+    to_address: your_email@gmail.com
+    password: ''          # Or use EMAIL_PASSWORD env variable
+  
+  webhook:
+    enabled: false        # Enable webhook notifications
+    url: https://your-webhook-url.com/notify
+
+# Logging configuration
+logging:
+  level: INFO            # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_to_file: true      # Write logs to file
+  log_file: logs/newbot.log
+  max_file_size_mb: 10   # Max log file size before rotation
+  backup_count: 5        # Number of backup log files to keep
+
+# Backup configuration
+backup:
+  enabled: true          # Enable automatic backups
+  interval_hours: 6      # Backup interval in hours
+  backup_dir: backups    # Directory for backup files
+  max_backups: 10        # Maximum number of backups to keep
+
+# Monitoring configuration
+monitoring:
+  check_interval_seconds: 60    # How often to check market conditions
+  network_timeout_seconds: 30   # Network request timeout
+  max_api_retries: 3            # Maximum API retry attempts

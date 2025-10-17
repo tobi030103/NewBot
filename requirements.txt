@@ -1,0 +1,32 @@
+# Core dependencies
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Trading APIs
+ccxt>=4.0.0  # Unified API for crypto exchanges (Binance, Bitpanda, etc.)
+
+# Data analysis and indicators
+pandas>=2.0.0
+numpy>=1.24.0
+ta>=0.11.0  # Technical Analysis library
+
+# Security
+cryptography>=41.0.0
+
+# Notifications
+requests>=2.31.0
+
+# Database (for logging and history)
+sqlalchemy>=2.0.0
+
+# GUI (optional)
+# PyQt5>=5.15.0  # Uncomment if GUI is needed
+
+# Backtesting
+# backtrader>=1.9.0  # Uncomment for backtesting features
+
+# Development dependencies
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.0.0
+flake8>=6.0.0
