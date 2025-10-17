@@ -43,13 +43,13 @@ class MockBroker(BaseBroker):
                 return order['status']
         return 'unknown'
     
-    def get_market_data(self, symbol: str, timeframe: str) -> dict:
+    def get_market_data(self, symbol: str, timeframe: str, limit: int = 100) -> dict:
         """Get mock market data"""
         # Generate fake OHLCV data
         data = []
         base_price = 50000.0
         
-        for i in range(100):
+        for i in range(limit):
             open_price = base_price + random.uniform(-1000, 1000)
             high = open_price + random.uniform(0, 500)
             low = open_price - random.uniform(0, 500)
