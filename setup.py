@@ -46,6 +46,11 @@ def setup_wizard():
     config_file = Path('config.yaml')
     example_file = Path('config.yaml.example')
     
+    if not example_file.exists():
+        print(f"  ✗ Error: {example_file} not found!")
+        print("  This file should be included with NewBot.")
+        return
+    
     if config_file.exists():
         print("  - config.yaml already exists")
         response = input("  Do you want to overwrite it? (y/N): ").strip().lower()
@@ -64,7 +69,10 @@ def setup_wizard():
     env_file = Path('.env')
     env_example = Path('.env.example')
     
-    if env_file.exists():
+    if not env_example.exists():
+        print(f"  ✗ Warning: {env_example} not found!")
+        print("  You'll need to create .env manually with your credentials.")
+    elif env_file.exists():
         print("  - .env already exists")
     else:
         shutil.copy(env_example, env_file)
@@ -131,7 +139,15 @@ def setup_wizard():
     # Update config file if chosen
     if broker in ['mock', 'binance']:
         try:
-            import yaml
+            # Check if yaml is available
+            try:
+                import yaml
+            except ImportError:
+                print("  ⚠ Cannot update config: pyyaml not installed")
+                print("  Please install dependencies: pip install -r requirements.txt")
+                print()
+                return
+            
             with open(config_file, 'r') as f:
                 config = yaml.safe_load(f)
             
@@ -145,6 +161,7 @@ def setup_wizard():
             print()
         except Exception as e:
             print(f"  ⚠ Could not update config: {e}")
+            print("  Please edit config.yaml manually")
             print()
     
     # Step 8: Summary

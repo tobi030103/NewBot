@@ -59,6 +59,8 @@ backups/
 config.yaml
 config.json
 credentials.json
+credentials.json.enc
+.encryption.key
 api_keys.json
 
 # Test coverage
